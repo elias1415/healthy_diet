@@ -1,5 +1,5 @@
-// sw.js - improved caching strategy v3
-const CACHE_NAME = 'diet-sa-final3-v3';
+// sw.js - improved caching strategy v1
+const CACHE_NAME = 'diet-sa-final3-v2';
 const ASSETS = ['/', '/index.html', '/css/styles.css', '/js/app.safe.js', '/js/meals.js', '/js/tracker.js'];
 self.addEventListener('install', evt=>{
   self.skipWaiting();
