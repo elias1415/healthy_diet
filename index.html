@@ -3,337 +3,93 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>دليل الرجيم الصحي – السعودية | خطط وجبات + حاسبة + متابعة + تمارين</title>
+  <title>دليل الرجيم الصحي – السعودية</title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <!-- استخدم ملف CSS محلي في الإنتاج -->
+  <!-- Critical fallback CSS -->
+  <style id="critical-fallback">
+    :root{--accent:#667eea;--card-bg:#fff}
+    body{font-family:"Cairo",sans-serif;margin:0;background:#f7fafc;color:#111}
+    .hidden{display:none!important}
+    .tab-active{background:var(--accent);color:#fff;border-radius:9999px;padding:6px 12px}
+    .nav-btn{cursor:pointer;border:1px solid transparent;padding:6px 10px;border-radius:9999px;background:transparent}
+    .card{background:var(--card-bg);border-radius:10px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,.06);margin:8px 0}
+    .section{display:block;padding:18px 0}
+    .btn-primary{background:var(--accent);color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer}
+    .btn-secondary{background:#fff;border:1px solid #e2e8f0;padding:6px 10px;border-radius:6px;cursor:pointer}
+    .inp{width:100%;padding:8px;border:1px solid #d1d5db;border-radius:6px}
+  </style>
   <link rel="stylesheet" href="css/styles.css">
-  <meta name="description" content="أطعمة سعودية، جدول وجبات متغيّر، حاسبة، متابعة وزن، تمارين مع فيديوهات YouTube.">
-  <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#667eea">
-  <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-gray-50 text-gray-800" data-theme="light">
-  <header class="gradient-bg text-white py-8 shadow">
-    <div class="container mx-auto px-4 text-center">
-      <h1 class="text-4xl md:text-6xl font-bold mb-3">🍽️ دليل الرجيم الصحي – مناسب للسعودية</h1>
-      <p class="text-lg md:text-2xl opacity-90">أطعمة محلية + جدول وجبات + حاسبة + متابعة وزن + تمارين</p>
-      <div class="mt-4">
-        <button id="toggleTheme" class="px-4 py-2 bg-black/20 rounded-full">تبديل الوضع الليلي</button>
-      </div>
-      <div class="mt-4 grid grid-cols-2 gap-3 max-w-md mx-auto text-sm">
-        <div class="bg-white/20 rounded p-3"><div>👥 إجمالي الزيارات</div><div id="totalVisits" class="text-2xl font-extrabold">0</div></div>
-        <div class="bg-white/20 rounded p-3"><div>⚡ النشطون الآن</div><div id="activeNow" class="text-2xl font-extrabold">1</div></div>
-      </div>
+<body>
+  <header class="gradient-bg text-white py-8">
+    <div class="container">
+      <h1>دليل الرجيم الصحي – مناسب للسعودية</h1>
     </div>
   </header>
 
-  <nav class="bg-white shadow sticky top-0 z-50" role="tablist" aria-label="التنقّل">
-    <div class="container mx-auto px-4">
-      <div class="flex flex-wrap justify-center gap-3 py-4">
-        <button class="nav-btn tab-active" data-target="foods" role="tab" aria-selected="true">الأطعمة</button>
-        <button class="nav-btn" data-target="diet-plan" role="tab" aria-selected="false">جدول الوجبات</button>
-        <button class="nav-btn" data-target="exercises" role="tab" aria-selected="false">التمارين</button>
-        <button class="nav-btn" data-target="calculator" role="tab" aria-selected="false">حاسبة السعرات</button>
-        <button class="nav-btn" data-target="progress" role="tab" aria-selected="false">متابعة الرجيم</button>
-        <button class="nav-btn" data-target="faq" role="tab" aria-selected="false">الأسئلة</button>
-      </div>
+  <nav>
+    <div>
+      <button class="nav-btn tab-active" data-target="foods">الأطعمة</button>
+      <button class="nav-btn" data-target="diet-plan">جدول الوجبات</button>
+      <button class="nav-btn" data-target="exercises">التمارين</button>
+      <button class="nav-btn" data-target="calculator">حاسبة السعرات</button>
+      <button class="nav-btn" data-target="progress">متابعة الرجيم</button>
     </div>
   </nav>
 
-  <!-- FOODS -->
-  <section id="foods" class="section py-14">
-    <div class="container mx-auto px-4">
-      <h2 class="section-title">🍴 أطعمة شائعة في السعودية مع تفاصيل غذائية</h2>
-      <div id="foodsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- محتوى ثابت عرضي. بيانات أكثر تضاف عبر js/meals.js -->
-      </div>
-    </div>
-  </section>
+  <main>
+    <section id="foods" class="section">
+      <h2>الأطعمة</h2>
+      <div id="foodsGrid"></div>
+    </section>
 
-  <!-- DIET PLAN -->
-  <section id="diet-plan" class="section py-14 hidden bg-gray-100">
-    <div class="container mx-auto px-4">
-      <h2 class="section-title">📅 جدول وجبات أسبوعي متنوع ومتغير</h2>
-
-      <div class="mb-6 flex flex-wrap gap-3 items-center justify-center">
-        <button id="shuffleAll" class="btn-primary">بدّل كل الأسبوع</button>
-        <button id="pinAll" class="btn-secondary">ثبّت الكل</button>
-        <button id="unpinAll" class="btn-secondary">إلغاء تثبيت الكل</button>
-        <button id="savePlan" class="btn-secondary">حفظ الخطة</button>
-        <button id="clearPlan" class="btn-danger">مسح الخطة</button>
-      </div>
-
-      <div id="weekly-plan" class="grid md:grid-cols-2 gap-4 max-w-5xl mx-auto"></div>
-
-      <div class="mt-8 bg-white p-4 rounded shadow">
-        <h3 class="font-bold mb-2">الوجبات اليومية الثابتة</h3>
-        <ol class="list-decimal pr-5 space-y-2 text-sm">
-          <li>
-            <strong>الوجبة الأولى:</strong><br>
-            ٤ بيضات (١ كاملة + ٣ بياض) مسلوقة + ٢٠٠غ بطاطس مسلوقة + ٥٠غ شوفان.<br>
-            (سعرات تقريبية: 450 س)
-          </li>
-          <li>
-            <strong>بعد ٣ ساعات - الوجبة الثانية:</strong><br>
-            ١٦٠غ صدور دجاج + ١٤٠غ رز أبيض + سلطة خضرا.<br>
-            (سعرات تقريبية: 550 س)
-          </li>
-          <li>
-            <strong>بعد ٣ ساعات - الوجبة الثالثة:</strong><br>
-            ١٧٠غ لحم بقري + ٨٠غ مكرونة + سلطة خضرا.<br>
-            (سعرات تقريبية: 600 س)
-          </li>
-          <li>
-            <strong>بعد ٣ ساعات - الوجبة الرابعة:</strong><br>
-            تونة (ماء وملح) عبوة وسط + خيار أو خس.<br>
-            (سعرات تقريبية: 180 س)
-          </li>
+    <section id="diet-plan" class="section hidden">
+      <h2>جدول الوجبات</h2>
+      <div id="weekly-plan"></div>
+      <div>
+        <h3>الوجبات اليومية الثابتة</h3>
+        <ol>
+          <li><strong>الوجبة الأولى:</strong> ٤ بيضات (١ كاملة + ٣ بياض) مسلوقة + ٢٠٠غ بطاطس مسلوقة + ٥٠غ شوفان.</li>
+          <li><strong>بعد ٣ ساعات - الوجبة الثانية:</strong> ١٦٠غ صدور دجاج + ١٤٠غ رز أبيض + سلطة خضرا.</li>
+          <li><strong>بعد ٣ ساعات - الوجبة الثالثة:</strong> ١٧٠غ لحم بقري + ٨٠غ مكرونة + سلطة خضرا.</li>
+          <li><strong>بعد ٣ ساعات - الوجبة الرابعة:</strong> تونة (ماء وملح) عبوة وسط + خيار أو خس.</li>
         </ol>
-        <p class="mt-3 text-sm"><strong>الماء:</strong> 3/4 لتر يومياً (ابدأ بالتصاعد إلى 2-3 لتر تدريجياً حسب الخطة).</p>
-
-        <div class="mt-4 p-3 bg-gray-50 rounded text-sm">
-          <h4 class="font-bold mb-2">ملاحظات ثابتة</h4>
-          <ul class="list-disc pr-5 space-y-1">
-            <li>الوزن يُقاس بعد الطهي وعلى الريق صباحاً قبل الأكل.</li>
-            <li>الملح، الشطة، الفلفل الأسود، الكمون، الليمون، الزنجبيل مسموح.</li>
-            <li>القهوة السوداء بلا سكر أو مع سكر استيفيا.</li>
-            <li>القهوة العربي مسموحة ٣ مرات أسبوعياً.</li>
-            <li>الشاي أخضر/أسود بدون سكر.</li>
-            <li>لا تدخل أي طعام خارج الجدول دون إعلام المدرب.</li>
-            <li>استفسر فوراً عن أي غموض.</li>
-            <li>غلق الوجبات قبل الساعة 12 منتصف الليل.</li>
-            <li>اشرب كوبين ماء مع كل وجبة.</li>
-            <li>توقف عن المشروبات الغازية والحلويات.</li>
-            <li>البصل، الطماطم، الجزر مسموحان.</li>
-            <li>زيت الزيتون أو زيت دوار الشمس مسموح.</li>
-            <li>طرق الطبخ المسموحة: مسلوق، مشوي، في القلاية الهوائية.</li>
-          </ul>
-        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- EXERCISES -->
-  <section id="exercises" class="section py-14 hidden">
-    <div class="container mx-auto px-4">
-      <h2 class="section-title">🏋️‍♀️ تمارين لكل جزء + فيديو</h2>
+    <section id="exercises" class="section hidden">
+      <h2>التمارين</h2>
+      <div id="exGrid"></div>
+    </section>
 
-      <p class="text-sm text-gray-600 mb-3">كل تمرين يظهر فيديو شرح. اضغط على الفيديو لتحميله. ثم اضغط "فتح في اليوتيوب" لفتح الصفحة الكاملة.</p>
+    <section id="calculator" class="section hidden">
+      <h2>حاسبة السعرات</h2>
+      <div id="calcRoot"></div>
+    </section>
 
-      <div id="exGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- سيتم تعبئتها من السكربت -->
-      </div>
-
-      <div class="mt-6 bg-white p-4 rounded shadow text-sm">
-        <h4 class="font-bold">قواعد التدريب</h4>
-        <p class="mt-2">لكل تمرين: ٤ جولات (١٥ - ١٢ - ١٢ - ١٠). راحة ٤٠ ثانية بين كل جولة. راحة ٢ دقيقة بين كل تمرين وتمرين.</p>
-        <p class="mt-2 font-semibold">أول أسبوع: تمرين شامل لكامل الجسم لتعويد المفاصل وتفادي الإصابات. (قسم مستقل موجود في أسفل الصفحة)</p>
-        <p class="mt-2">الكارديو يومي: ٦٠ دقيقة مشي سريع. أفضل وقت: على الريق صباحاً. نرفع المدة تدريجياً حسب النتائج كل جمعة.</p>
-      </div>
-
-      <div id="firstWeek" class="mt-6 bg-gray-50 p-4 rounded shadow">
-        <h3 class="font-bold mb-2">الخطة الشاملة للأسبوع الأول</h3>
-        <p class="text-sm">تمارين شاملة لكل الجسم مع فيديو توضيحي لكل جزء.</p>
-        <div id="firstWeekGrid" class="grid md:grid-cols-2 gap-4 mt-3"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CALCULATOR -->
-  <section id="calculator" class="section py-14 hidden">
-    <div class="container mx-auto px-4">
-      <h2 class="section-title">🧮 حاسبة السعرات الحرارية</h2>
-      <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-        <div class="card">
-          <form id="calForm" onsubmit="return false;" class="space-y-4">
-            <div><label class="lbl">الجنس</label>
-              <div class="flex gap-4">
-                <label class="flex items-center gap-2"><input type="radio" name="gender" value="male" checked> ذكر</label>
-                <label class="flex items-center gap-2"><input type="radio" name="gender" value="female"> أنثى</label>
-              </div></div>
-            <div><label class="lbl">العمر</label><input id="age" type="number" class="inp" min="15" max="100" required></div>
-            <div><label class="lbl">الوزن (كغ)</label><input id="weight" type="number" class="inp" min="30" max="200" required></div>
-            <div><label class="lbl">الطول (سم)</label><input id="height" type="number" class="inp" min="120" max="220" required></div>
-            <div><label class="lbl">النشاط</label>
-              <select id="activity" class="inp">
-                <option value="1.2">قليل الحركة</option><option value="1.375">نشاط خفيف</option>
-                <option value="1.55">نشاط متوسط</option><option value="1.725">نشاط عالٍ</option><option value="1.9">نشاط مكثف</option></select></div>
-            <div><label class="lbl">الهدف</label>
-              <select id="goal" class="inp">
-                <option value="-500">فقدان 0.5 كغ/أسبوع</option><option value="-250">فقدان 0.25 كغ/أسبوع</option>
-                <option value="0">حفاظ</option><option value="250">زيادة 0.25 كغ/أسبوع</option><option value="500">زيادة 0.5 كغ/أسبوع</option></select></div>
-            <button type="button" id="calcBtn" class="btn-primary">احسب</button>
-          </form>
-        </div>
-        <div class="card">
-          <div id="results" class="hidden space-y-3">
-            <div class="pill pill-blue"><div class="pill-title">BMR</div><div id="bmr" class="pill-val">0</div></div>
-            <div class="pill pill-green"><div class="pill-title">الحفاظ</div><div id="maintenance" class="pill-val">0</div></div>
-            <div class="pill pill-purple"><div class="pill-title">الهدف</div><div id="target" class="pill-val">0</div></div>
-            <div class="pill pill-yellow"><div class="pill-title">BMI</div><div id="bmi" class="pill-val">0</div><div id="bmi-status" class="text-xs text-gray-600">-</div></div>
-            <div class="p-3 bg-gray-50 rounded">
-              <div class="font-bold mb-1">توزيع المغذيات</div>
-              <div class="grid grid-cols-3 text-center text-sm">
-                <div><div class="font-semibold text-rose-600">بروتين</div><div id="protein">0g</div></div>
-                <div><div class="font-semibold text-blue-600">كارب</div><div id="carbs">0g</div></div>
-                <div><div class="font-semibold text-green-600">دهون</div><div id="fats">0g</div></div>
-              </div>
-            </div>
-          </div>
-          <div id="no-results" class="text-center text-gray-500 py-10">أدخل بياناتك لعرض النتائج</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROGRESS -->
-  <section id="progress" class="section py-14 hidden bg-gray-50">
-    <div class="container mx-auto px-4">
-      <h2 class="section-title">📊 متابعة الرجيم</h2>
-      <div class="max-w-xl mx-auto card space-y-3">
-        <input id="weightInput" type="number" placeholder="أدخل وزنك الحالي (كغ)" class="inp">
+    <section id="progress" class="section hidden">
+      <h2>متابعة الرجيم</h2>
+      <div>
+        <input id="weightInput" class="inp" placeholder="أدخل وزنك (كغ)">
         <button id="addWeight" class="btn-primary">إضافة وزن</button>
       </div>
-      <div class="max-w-3xl mx-auto mt-6 card">
-        <h3 class="text-lg font-bold mb-2">سجل الأوزان</h3>
-        <ul id="weightList" class="space-y-2 text-gray-700"></ul>
-      </div>
-      <div class="max-w-3xl mx-auto mt-6 card">
-        <canvas id="weightChart"></canvas>
-      </div>
-    </div>
-  </section>
+      <ul id="weightList"></ul>
+      <canvas id="weightChart" width="400" height="200"></canvas>
+    </section>
+  </main>
 
-  <section id="faq" class="section py-14 hidden">
-    <div class="container mx-auto px-4">
-      <h2 class="section-title">❓ أسئلة شائعة</h2>
-      <div class="grid md:grid-cols-2 gap-4">
-        <details class="card"><summary class="font-bold cursor-pointer">هل يمكن استبدال الخبز الأبيض؟</summary><p class="mt-2 text-sm text-gray-700">نعم، استخدم خبز بر أو شوفان أو صاج أسمر.</p></details>
-        <details class="card"><summary class="font-bold cursor-pointer">كم مرة أمارس الكارديو؟</summary><p class="mt-2 text-sm text-gray-700">٣–٥ مرات أسبوعيًا لمدة ٢٠–٣٠ دقيقة.</p></details>
-        <details class="card"><summary class="font-bold cursor-pointer">أفضل وقت للعشاء؟</summary><p class="mt-2 text-sm text-gray-700">قبل النوم بـ ٢–٣ ساعات.</p></details>
-      </div>
-    </div>
-  </section>
-
-  <footer class="gradient-bg text-white py-10 mt-10">
-    <div class="container mx-auto px-4 text-center">
-      <p class="mb-1">© نسخة مخصصة للسوق السعودي</p>
-    </div>
+  <footer>
+    <p>© مٌعدّ للتجربة</p>
   </footer>
 
-  <!-- سكربتات: ضمّن بيانات الوصفات أولاً -->
+  <!-- scripts: meals, tracker, app-safe -->
   <script defer src="js/meals.js"></script>
-  <script defer src="js/app.js"></script>
   <script defer src="js/tracker.js"></script>
+  <script defer src="js/app.safe.js"></script>
 
-  <!-- علّق تسجيل Service Worker أثناء الاختبار -->
-  <!--<script>if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }</script>-->
-
-  <!-- سكربت محلي صغير لبناء الـ DOM الخاص بالتمارين والوجبات الثابتة وتحميل فيديو يوتيوب عند الطلب -->
-  <script>
-  (function(){
-    // عناصر ثابتة للتمارين مع معرفات YouTube (nocookie)
-    const EXERCISES = [
-      {group:'باي', youtube:'bA3J2H8m1t8', list:['EZ-Bar Curl','Hammer Curl','Concentration Curl']},
-      {group:'تراي', youtube:'6SSQzW4Zp6k', list:['Close-Grip Bench','Overhead Extension','Tricep Dips']},
-      {group:'سواعد', youtube:'someId1', list:['Wrist Curl','Reverse Curl']},
-      {group:'صدر', youtube:'dQw4w9WgXcQ', list:['Bench Press','Incline Press','Cable Fly']},
-      {group:'افخاذ', youtube:'aclHkVaku9U', list:['Squat','Lunge','Leg Press']},
-      {group:'بطات', youtube:'SeatedCalf', list:['Seated Calf Raise','Standing Calf Raise']},
-      {group:'ظهر', youtube:'X2m-5m9v1Z0', list:['Pull-ups','Bent-over Row','Deadlift']},
-      {group:'اكتاف', youtube:'IODxDxX7oi4', list:['Shoulder Press','Lateral Raise','Front Raise']},
-      {group:'ترابيس', youtube:'DumbbellShrugId', list:['Dumbbell Shrug','Barbell Shrug']},
-      {group:'بطن', youtube:'pSHjTRCQxIw', list:['Crunches','Plank','Cable Crunch']}
-    ];
-
-    // رندر شبكة التمارين
-    const exGrid = document.getElementById('exGrid');
-    EXERCISES.forEach(e=>{
-      const card = document.createElement('div'); card.className='card';
-      let items = '<ul class="list-disc pr-5 text-sm text-gray-700 space-y-1">';
-      e.list.forEach(i=> items += `<li>${i}</li>`);
-      items += '</ul>';
-      card.innerHTML = `<h3 class="font-extrabold text-blue-700 mb-2">${e.group}</h3>${items}<div class="yt-thumb mt-3" data-yt="${e.youtube}"><button class="btn-secondary">شغّل الفيديو</button></div><div class="mt-2 text-xs text-gray-600">٤ جولات (١٥–١٢–١٢–١٠) | راحة ٤٠ث | راحة ٢ دقيقة بين التمارين<br><a target="_blank" rel="noopener" class="yt-open text-blue-600 text-sm" href="https://www.youtube-nocookie.com/watch?v=${e.youtube}">فتح في اليوتيوب</a></div>`;
-      exGrid.appendChild(card);
-    });
-
-    // الخطة الشاملة للأسبوع الأول (full-body)
-    const firstWeekGrid = document.getElementById('firstWeekGrid');
-    const fullBody = [
-      {title:'تمرين شامل 1', yt:'IODxDxX7oi4', desc:'تمارين مركبة: سكوات، بنش، سحب، بلانك'},
-      {title:'تمرين شامل 2', yt:'aclHkVaku9U', desc:'تركيز على الساقين والظهر'},
-    ];
-    fullBody.forEach(f=>{
-      const c = document.createElement('div'); c.className='p-3 bg-white rounded shadow';
-      c.innerHTML = `<h4 class="font-bold">${f.title}</h4><p class="text-sm">${f.desc}</p><div class="yt-thumb mt-2" data-yt="${f.yt}"><button class="btn-secondary">شغّل الفيديو</button></div>`;
-      firstWeekGrid.appendChild(c);
-    });
-
-    // تحويل thumbs إلى iframe عند النقر
-    document.addEventListener('click', function(e){
-      const t = e.target.closest('.yt-thumb');
-      if(t){
-        const id = t.getAttribute('data-yt');
-        if(!id) return;
-        const iframe = document.createElement('iframe');
-        iframe.width = '560'; iframe.height = '315';
-        iframe.setAttribute('allow','accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
-        iframe.setAttribute('allowfullscreen','');
-        iframe.src = `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1`;
-        t.innerHTML = '';
-        t.appendChild(iframe);
-      }
-    });
-
-    // جدول الأسبوع الثابت كما طلبت
-    const weekPlan = {
-      'الأحد':'صدر، تراي، بطن',
-      'الاثنين':'ظهر، باي',
-      'الثلاثاء':'اكتاف، ترابيس، بطن',
-      'الأربعاء':'افخاذ، بطات',
-      'الخميس':'باي، تراي، سواعد، بطن',
-      'الجمعة':'راحة',
-      'السبت':'راحة'
-    };
-    const weeklyPlanEl = document.getElementById('weekly-plan');
-    Object.keys(weekPlan).forEach(day=>{
-      const div = document.createElement('div'); div.className='card p-3';
-      div.innerHTML = `<strong>${day}</strong><div class="text-sm mt-1">${weekPlan[day]}</div>`;
-      weeklyPlanEl.appendChild(div);
-    });
-
-    // أدرج الوجبات اليومية الثابتة ضمن حقل الوجبات (لو احتجنا تعديل ديناميكي لاحقاً)
-    // (تم إضافة المحتوى الثابت أعلى في المقطع الخاص بالوجبات)
-    // لاحقاً سنربط السعرات من الحاسبة ديناميكياً.
-
-    // تهيئة شبكة الأطعمة إن كانت meals.js تضع RECIPES
-    if(window.RECIPES && Array.isArray(window.RECIPES)){
-      const foodsGrid = document.getElementById('foodsGrid');
-      // نعرض عينات أولية
-      window.RECIPES.slice(0,12).forEach(r=>{
-        const d = document.createElement('div'); d.className='food-card p-3 bg-white rounded shadow';
-        const ingr = (r.ingredients || []).slice(0,6).join('، ');
-        d.innerHTML = `<h3 class="font-bold">${r.title}</h3><p class="text-sm mt-1">${r.calories || '—'} س | ${ingr}</p><div class="mt-2"><button class="btn-secondary" onclick="(function(){let f=JSON.parse(localStorage.getItem('fav_recipes_v1')||'[]'); if(!f.includes('${r.id}')){f.push('${r.id}'); localStorage.setItem('fav_recipes_v1', JSON.stringify(f)); alert('أضيف للمفضلة');}else{alert('موجود');}})()">☆ مفضلة</button></div>`;
-        foodsGrid.appendChild(d);
-      });
-    }
-
-    // تفعيل التبويبات والتنقّل البسيط
-    document.querySelectorAll('.nav-btn').forEach(btn=>{
-      btn.addEventListener('click', function(){
-        document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('tab-active'));
-        this.classList.add('tab-active');
-        const target = this.getAttribute('data-target');
-        document.querySelectorAll('section.section').forEach(s=>s.classList.add('hidden'));
-        const el = document.getElementById(target);
-        if(el) el.classList.remove('hidden');
-      });
-    });
-
-    // إبقاء الواجهة جاهزة
-    console.log('UI helper loaded: exercises, weekly-plan, fixed meals added.');
-  })();
-  </script>
+  <!-- register service worker commented during staging -->
+  <!-- <script> if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js'); </script> -->
 </body>
 </html>
