@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>دليل الرجيم الصحي – السعودية | خطط وجبات + حاسبة + متابعة + تمارين</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script defer src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta name="description" content="أطعمة سعودية، جدول وجبات متغيّر، حاسبة، متابعة وزن، تمارين مع فيديوهات YouTube.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#667eea">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50 text-gray-800" data-theme="light">
+  <header class="gradient-bg text-white py-8 shadow">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-6xl font-bold mb-3">🍽️ دليل الرجيم الصحي – مناسب للسعودية</h1>
+      <p class="text-lg md:text-2xl opacity-90">أطعمة محلية + جدول وجبات + حاسبة + متابعة وزن + تمارين</p>
+      <div class="mt-4">
+        <button id="toggleTheme" class="px-4 py-2 bg-black/20 rounded-full hover:bg-black/30 focus:ring-2 focus:ring-white" aria-pressed="false">تبديل الوضع الليلي</button>
+      </div>
+      <div class="mt-4 grid grid-cols-2 gap-3 max-w-md mx-auto text-sm">
+        <div class="bg-white/20 rounded p-3"><div>👥 إجمالي الزيارات</div><div id="totalVisits" class="text-2xl font-extrabold">0</div></div>
+        <div class="bg-white/20 rounded p-3"><div>⚡ النشطون الآن (على جهازك)</div><div id="activeNow" class="text-2xl font-extrabold">1</div></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="bg-white shadow sticky top-0 z-50" role="tablist" aria-label="التنقّل">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap justify-center gap-3 py-4">
+        <button class="nav-btn tab-active" data-target="foods" role="tab" aria-selected="true">الأطعمة</button>
+        <button class="nav-btn" data-target="diet-plan" role="tab" aria-selected="false">جدول الوجبات</button>
+        <button class="nav-btn" data-target="exercises" role="tab" aria-selected="false">التمارين</button>
+        <button class="nav-btn" data-target="calculator" role="tab" aria-selected="false">حاسبة السعرات</button>
+        <button class="nav-btn" data-target="progress" role="tab" aria-selected="false">متابعة الرجيم</button>
+        <button class="nav-btn" data-target="faq" role="tab" aria-selected="false">الأسئلة</button>
+      </div>
+    </div>
+  </nav>
+
+  <section id="foods" class="section py-14">
+    <div class="container mx-auto px-4">
+      <h2 class="section-title">🍴 أطعمة شائعة في السعودية مع تفاصيل غذائية</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="food-card"><h3>تمر (٣ حبات)</h3><p>≈ 75 س | بروتين 0.8غ | كارب 20غ | دهون 0غ | ألياف 2غ</p><small>قبل التمرين أو مع القهوة.</small></div>
+        <div class="food-card"><h3>فول بزيت زيتون (١٠٠غ)</h3><p>≈ 120 س | بروتين 8غ | كارب 18غ | دهون 3غ | ألياف 5غ</p><small>أضف خيار وطماطم.</small></div>
+        <div class="food-card"><h3>زبادي بلدي قليل الدسم (٢٠٠غ)</h3><p>≈ 120 س | بروتين 10غ | كارب 10غ | دهون 4غ</p><small>أضف نعناع وخيار.</small></div>
+        <div class="food-card"><h3>سمك هامور مشوي (١٥٠غ)</h3><p>≈ 220 س | بروتين 30غ | كارب 0غ | دهون 10غ</p><small>مع تبولة.</small></div>
+        <div class="food-card"><h3>صدر دجاج مشوي (١٥٠غ)</h3><p>≈ 240 س | بروتين 35غ | كارب 0غ | دهون 8غ</p><small>بهارات خفيفة دون جلد.</small></div>
+        <div class="food-card"><h3>أرز بني مطبوخ (١٥٠غ)</h3><p>≈ 170 س | بروتين 3غ | كارب 36غ | دهون 1غ | ألياف 2غ</p><small>بديل للأبيض.</small></div>
+        <div class="food-card"><h3>كبسة دايت بالدجاج (٢٥٠غ)</h3><p>≈ 420 س | بروتين 28غ | كارب 55غ | دهون 10غ</p><small>زيت بدل السمن.</small></div>
+        <div class="food-card"><h3>حمص بالطحينة (٦٠غ)</h3><p>≈ 180 س | بروتين 5غ | كارب 12غ | دهون 12غ</p><small>كمية صغيرة.</small></div>
+        <div class="food-card"><h3>خبز بر (٤٠غ)</h3><p>≈ 90 س | بروتين 3غ | كارب 18غ | دهون 1غ | ألياف 3غ</p><small>يشبع أكثر.</small></div>
+        <div class="food-card"><h3>تبولة (كوب)</h3><p>≈ 120 س | بروتين 3غ | كارب 14غ | دهون 6غ</p></div>
+        <div class="food-card"><h3>شوربة عدس (كوب)</h3><p>≈ 180 س | بروتين 12غ | كارب 30غ | دهون 3غ</p></div>
+        <div class="food-card"><h3>تونة بالماء (١٢٠غ)</h3><p>≈ 140 س | بروتين 30غ | كارب 0غ | دهون 1غ</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="diet-plan" class="section py-14 hidden bg-gray-100">
+    <div class="container mx-auto px-4">
+      <h2 class="section-title">📅 جدول وجبات أسبوعي متنوع ومتغير</h2>
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
+        <button id="shuffleAll" class="btn-primary">بدّل كل الأسبوع</button>
+        <button id="pinAll" class="btn-secondary">ثبّت الكل</button>
+        <button id="unpinAll" class="btn-secondary">إلغاء تثبيت الكل</button>
+        <button id="savePlan" class="btn-secondary">حفظ الخطة</button>
+        <button id="clearPlan" class="btn-danger">مسح الخطة</button>
+      </div>
+      <div id="weekly-plan" class="grid md:grid-cols-2 gap-4 max-w-5xl mx-auto"></div>
+    </div>
+  </section>
+
+  <section id="exercises" class="section py-14 hidden">
+    <div class="container mx-auto px-4">
+      <h2 class="section-title">🏋️‍♀️ تمارين لكل جزء + فيديو</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="card"><h3 class="font-extrabold text-blue-700 mb-2">الجزء العلوي</h3>
+          <ul class="list-disc pr-5 text-sm text-gray-700 space-y-1">
+            <li>تمارين الضغط</li><li>العقلة</li><li>ضغط كتف</li></ul>
+          <div class="yt thumb" data-yt="IODxDxX7oi4" aria-label="فيديو الضغط"></div>
+        </div>
+        <div class="card"><h3 class="font-extrabold text-red-700 mb-2">البطن والوسط</h3>
+          <ul class="list-disc pr-5 text-sm text-gray-700 space-y-1">
+            <li>بلانك</li><li>كرنش</li><li>رفع ركبتين</li></ul>
+          <div class="yt thumb" data-yt="pSHjTRCQxIw" aria-label="فيديو البلانك"></div>
+        </div>
+        <div class="card"><h3 class="font-extrabold text-green-700 mb-2">الجزء السفلي</h3>
+          <ul class="list-disc pr-5 text-sm text-gray-700 space-y-1">
+            <li>سكوات</li><li>اندفاع</li><li>جسر الأرداف</li></ul>
+          <div class="yt thumb" data-yt="aclHkVaku9U" aria-label="فيديو السكوات"></div>
+        </div>
+        <div class="card"><h3 class="font-extrabold text-purple-700 mb-2">الكارديو</h3>
+          <ul class="list-disc pr-5 text-sm text-gray-700 space-y-1">
+            <li>جري/مشي</li><li>قفز حبل</li><li>HIIT</li></ul>
+          <div class="yt thumb" data-yt="ml6cT4AZdqI" aria-label="فيديو HIIT"></div>
+        </div>
+        <div class="card"><h3 class="font-extrabold text-indigo-700 mb-2">المرونة</h3>
+          <ul class="list-disc pr-5 text-sm text-gray-700 space-y-1">
+            <li>يوغا للمبتدئين</li><li>إطالة عامة</li><li>فتح الورك</li></ul>
+          <div class="yt thumb" data-yt="v7AYKMP6rOE" aria-label="فيديو يوغا"></div>
+        </div>
+      </div>
+      <p class="text-xs text-gray-500 mt-4">يتم تحميل الفيديو عند النقر للحفاظ على السرعة.</p>
+    </div>
+  </section>
+
+  <section id="calculator" class="section py-14 hidden">
+    <div class="container mx-auto px-4">
+      <h2 class="section-title">🧮 حاسبة السعرات الحرارية</h2>
+      <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+        <div class="card">
+          <form onsubmit="return false;" class="space-y-4">
+            <div><label class="lbl">الجنس</label>
+              <div class="flex gap-4">
+                <label class="flex items-center gap-2"><input type="radio" name="gender" value="male" checked> ذكر</label>
+                <label class="flex items-center gap-2"><input type="radio" name="gender" value="female"> أنثى</label>
+              </div></div>
+            <div><label class="lbl">العمر</label><input id="age" type="number" class="inp" min="15" max="100" required></div>
+            <div><label class="lbl">الوزن (كغ)</label><input id="weight" type="number" class="inp" min="30" max="200" required></div>
+            <div><label class="lbl">الطول (سم)</label><input id="height" type="number" class="inp" min="120" max="220" required></div>
+            <div><label class="lbl">النشاط</label>
+              <select id="activity" class="inp">
+                <option value="1.2">قليل الحركة</option><option value="1.375">نشاط خفيف</option>
+                <option value="1.55">نشاط متوسط</option><option value="1.725">نشاط عالٍ</option><option value="1.9">نشاط مكثف</option></select></div>
+            <div><label class="lbl">الهدف</label>
+              <select id="goal" class="inp">
+                <option value="-500">فقدان 0.5 كغ/أسبوع</option><option value="-250">فقدان 0.25 كغ/أسبوع</option>
+                <option value="0">حفاظ</option><option value="250">زيادة 0.25 كغ/أسبوع</option><option value="500">زيادة 0.5 كغ/أسبوع</option></select></div>
+            <button type="button" id="calcBtn" class="btn-primary">احسب</button>
+          </form>
+        </div>
+        <div class="card">
+          <div id="results" class="hidden space-y-3">
+            <div class="pill pill-blue"><div class="pill-title">BMR</div><div id="bmr" class="pill-val">0</div></div>
+            <div class="pill pill-green"><div class="pill-title">الحفاظ</div><div id="maintenance" class="pill-val">0</div></div>
+            <div class="pill pill-purple"><div class="pill-title">الهدف</div><div id="target" class="pill-val">0</div></div>
+            <div class="pill pill-yellow"><div class="pill-title">BMI</div><div id="bmi" class="pill-val">0</div><div id="bmi-status" class="text-xs text-gray-600">-</div></div>
+            <div class="p-3 bg-gray-50 rounded">
+              <div class="font-bold mb-1">توزيع المغذيات</div>
+              <div class="grid grid-cols-3 text-center text-sm">
+                <div><div class="font-semibold text-rose-600">بروتين</div><div id="protein">0g</div></div>
+                <div><div class="font-semibold text-blue-600">كارب</div><div id="carbs">0g</div></div>
+                <div><div class="font-semibold text-green-600">دهون</div><div id="fats">0g</div></div>
+              </div>
+            </div>
+          </div>
+          <div id="no-results" class="text-center text-gray-500 py-10">أدخل بياناتك لعرض النتائج</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="progress" class="section py-14 hidden bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="section-title">📊 متابعة الرجيم</h2>
+      <div class="max-w-xl mx-auto card space-y-3">
+        <input id="weightInput" type="number" placeholder="أدخل وزنك الحالي (كغ)" class="inp">
+        <button id="addWeight" class="btn-primary">إضافة وزن</button>
+      </div>
+      <div class="max-w-3xl mx-auto mt-6 card">
+        <h3 class="text-lg font-bold mb-2">سجل الأوزان</h3>
+        <ul id="weightList" class="space-y-2 text-gray-700"></ul>
+      </div>
+      <div class="max-w-3xl mx-auto mt-6 card">
+        <canvas id="weightChart"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section py-14 hidden">
+    <div class="container mx-auto px-4">
+      <h2 class="section-title">❓ أسئلة شائعة</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <details class="card"><summary class="font-bold cursor-pointer">هل يمكن استبدال الخبز الأبيض؟</summary><p class="mt-2 text-sm text-gray-700">نعم، استخدم خبز بر أو شوفان أو صاج أسمر.</p></details>
+        <details class="card"><summary class="font-bold cursor-pointer">كم مرة أمارس الكارديو؟</summary><p class="mt-2 text-sm text-gray-700">٣–٥ مرات أسبوعيًا لمدة ٢٠–٣٠ دقيقة.</p></details>
+        <details class="card"><summary class="font-bold cursor-pointer">أفضل وقت للعشاء؟</summary><p class="mt-2 text-sm text-gray-700">قبل النوم بـ ٢–٣ ساعات.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <footer class="gradient-bg text-white py-10 mt-10">
+    <div class="container mx-auto px-4 text-center">
+      <p class="mb-1">© نسخة مخصصة للسوق السعودي</p>
+      <p class="text-xs opacity-80">العدادات محلية (لا سيرفر).</p>
+    </div>
+  </footer>
+
+  <script defer src="js/app.js"></script>
+  <script defer src="js/meals.js"></script>
+  <script defer src="js/tracker.js"></script>
+  <script>if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }</script>
+</body></html>
